@@ -1,0 +1,41 @@
+Memory Types
+============
+
+SRAM (Static RAM)
+-----------------
+Has 6 Transistors (There are 4 Transistor varieties but they have disadvantages)
+The Core is formed by 4 transistors, They form Two cross-coupled inverters
+They have two stable states of 1 and 0
+The States are stables as long as the Vdd line has power
+
+Reading -> Raising the Word Access Line(WL)
+Writing -> Setting BL and BL Invert to the required values and Setting WL line high
+
+There are other, slower and less power-hungry, SRAM forms available, but those are not of interest here since we are looking at fast RAM. These slow variants are mainly interesting because they can be more easily used in a system than dynamic RAM because of their simpler interface.
+
+
+Dynamic RAM
+-----------
+
+        | AL
+       ---
+       ---
+ DL ___/ \
+       M --- C
+         ---
+          |
+        -----
+         ___
+          -
+
+A Dynamic RAM Cell keeps its state in a capacitor, A transistor is used to guard the acess to the Capacitor.
+
+To read the state of the cell the access line AL is raised; this either causes a current to flow on the data line DL or not, depending on the charge in the capacitor. To write to the cell the data line DL is appropriately set and then AL is raised for a time long enough to charge or drain the capacitor.
+
+It only takes a short time for the capacity to dissipate. This problem is called “leakage”.
+
+The data line must be connected to a sense amplifier which can distinguish between a stored 0 or 1 over the whole range of charges which still have to count as 1.
+
+
+
+

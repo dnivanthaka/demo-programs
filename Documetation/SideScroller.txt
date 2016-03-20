@@ -1,0 +1,7 @@
+Side scrollers
+==============
+http://forums.tigsource.com/index.php?topic=15642.msg450370#msg450370
+http://forums.create.msdn.com/forums/t/2731.aspx
+http://gamedev.stackexchange.com/questions/25704/2d-side-scroller-how-to-implement-x-y-movement
+http://gamedev.stackexchange.com/questions/6191/2d-side-scrolling-game-and-walk-over-ground-collision-detection?rq=1
+http://gamedev.stackexchange.com/questions/197/how-can-i-implement-parallax-scrolling-into-my-2d-game?rq=1

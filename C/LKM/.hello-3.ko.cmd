@@ -1,0 +1,1 @@
+cmd_/home/dinusha/programs/C/LKM/hello-3.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-2.6.32-41-generic/scripts/module-common.lds --build-id -o /home/dinusha/programs/C/LKM/hello-3.ko /home/dinusha/programs/C/LKM/hello-3.o /home/dinusha/programs/C/LKM/hello-3.mod.o

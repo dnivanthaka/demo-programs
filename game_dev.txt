@@ -1,0 +1,12 @@
+Steps in game development (SDL)
+===============================
+
+init_game()
+
+(Game Loop){
+    handle_events()
+    update_State()
+    draw_to_screen()
+}
+
+

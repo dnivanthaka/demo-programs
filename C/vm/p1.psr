@@ -1,0 +1,16 @@
+#startSS
+mov ax, 1
+mov bx, 2
+mov cx, 3
+#endSS
+#startData
+mov ax, 1
+2
+3
+4
+#endData
+#startTxt
+3
+4
+5
+#endTxt

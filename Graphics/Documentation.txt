@@ -1,0 +1,15 @@
+SDL Game utils set
+
+Graphics
+=========
+init_graphics
+getpixel
+putpixel
+load_image
+
+Events
+======
+handle_input
+
+
+

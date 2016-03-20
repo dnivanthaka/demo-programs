@@ -1,0 +1,34 @@
+# use "gcc" to compile source files.
+CC = gcc
+# the linker is also "gcc". It might be something else with other compilers.
+LD = gcc
+# Compiler flags go here.
+CFLAGS = -g -Wall
+# Linker flags go here. Currently there aren't any, but if we'll switch to
+# code optimization, we might add "-s" here to strip debug info and symbols.
+LDFLAGS =
+# use this command to erase files.
+RM = /bin/rm -f
+# list of generated object files.
+OBJS = test.o pcx.o
+# program executable file name.
+PROG = pcx_test
+
+# top-level rule, to compile everything.
+all: $(PROG)
+
+# rule to link the program
+$(PROG): $(OBJS)
+	$(LD) $(LDFLAGS) $(OBJS) -o $(PROG)
+
+# rule for file "main.o".
+test.o: test.c pcx.h types.h
+	$(CC) $(CFLAGS) -c test.c
+
+# rule for file "file1.o".
+pcx.o: pcx.c pcx.h
+	$(CC) $(CFLAGS) -c pcx.c
+
+# rule for cleaning re-compilable files.
+clean:
+	$(RM) $(PROG) $(OBJS)

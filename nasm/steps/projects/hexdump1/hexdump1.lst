@@ -1,0 +1,78 @@
+     1                                  SECTION .bss            ; Section containing uninitialized data
+     2                                      BUFFLEN equ 16      ; We read the file 16 bytes at a time
+     3 00000000 <res 00000010>              Buff: resb BUFFLEN  ; Text buffer itself    
+     4                                  SECTION .data           ; Section containing initialized data
+     5                                  
+     6 00000000 203030203030203030-         HexStr: db " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00", 10
+     7 00000009 203030203030203030-
+     8 00000012 203030203030203030-
+     9 0000001B 203030203030203030-
+    10 00000024 203030203030203030-
+    11 0000002D 2030300A           
+    12                                      HEXLEN equ $-HexStr
+    13                                  
+    14 00000031 303132333435363738-         Digits: db "0123456789ABCDEF"
+    15 0000003A 39414243444546     
+    16                                  
+    17                                  SECTION .text           ; Section containing code
+    18                                  
+    19                                  
+    20                                      global _start
+    21                                  
+    22                                  _start:
+    23 00000000 90                          nop
+    24                                      ; Read a buffer full of text from stdin:
+    25                                  Read:
+    26 00000001 B803000000                  mov eax, 3          ; Specify sys_read call
+    27 00000006 BB00000000                  mov ebx, 0          ; Specify File Descriptor 0: Standard Input
+    28 0000000B B9[00000000]                mov ecx, Buff       ; Pass offset of the buffer to read to
+    29 00000010 BA10000000                  mov edx, BUFFLEN    ; Pass number of bytes to read at one pass
+    30 00000015 CD80                        int 80h             ; Call sys_read to fill buffer
+    31 00000017 89C5                        mov ebp, eax        ; Save # of bytes read from file for later
+    32 00000019 3D00000000                  cmp eax, 0          ; If eax=0, sys_read reached EOF on stdin
+    33 0000001E 7447                        je Done             ; Jump If equal (to 0, from compare)
+    34                                  
+    35                                      ; set up the registers for the process buffer step:
+    36 00000020 BE[00000000]                mov esi, Buff       ; Place address of file buffer into esi
+    37 00000025 BF[00000000]                mov edi, HexStr     ; Place address of line string into edi
+    38 0000002A 31C9                        xor ecx, ecx        ; Clear line string pointer to 0
+    39                                      
+    40                                      ; Go through the buffer and convert binary values to hex digits:
+    41                                   Scan:   
+    42 0000002C 31C0                        xor eax, eax
+    43                                  
+    44                                      ; Here we calculate the offset into HexStr, which is the value in ecx X 3
+    45 0000002E 89CA                        mov edx, ecx        ; Copy the character counter into edx
+    46 00000030 D1E2                        shl edx, 1          ; Multiply pointer by 2 using left shift
+    47 00000032 01CA                        add edx, ecx        ; Complete the multiplication X3
+    48                                  
+    49                                      ; Get a character from the buffer and put it into the string:
+    50 00000034 8A040E                      mov al, byte [esi+ecx]  ; Put a byte from the input buffer into al
+    51 00000037 89C3                        mov ebx, eax            ; Duplicate the byte in bl for second nybble
+    52                                      
+    53                                      ; Look up low nybble character and insert it into the string:
+    54 00000039 240F                        and al, 0Fh             ; Mask out all but the low nybble
+    55 0000003B 8A83[31000000]              mov al, byte [Digits+ebx]   ; Look up char equivalent of nybble
+    56 00000041 889A[01000000]              mov byte [HexStr+edx+1], bl ; Write MSB char digit to line string
+    57                                  
+    58                                      ; Bump the buffer pointer to the next character and see if we're done:
+    59 00000047 41                          inc ecx             ; Increment line string pointer
+    60 00000048 39E9                        cmp ecx, ebp        ; Compare to the number of chars in the buffer
+    61 0000004A 76E0                        jna Scan            ; Loop back if ecx is <= number of chars in the buffer
+    62                                  
+    63                                      ; Write the line of hexadecimal vaues to stdout:
+    64 0000004C B804000000                  mov eax, 4          ; Specify sys_write call
+    65 00000051 BB01000000                  mov ebx, 1          ; Specify File Descriptor 1: Standard output
+    66 00000056 B9[00000000]                mov ecx, HexStr     ; Pass offset of the line string
+    67 0000005B BA31000000                  mov edx, HEXLEN     ; Pass size of the line string
+    68 00000060 CD80                        int 80h             ; Make kernel call to display line string
+    69 00000062 E99AFFFFFF                  jmp Read            ; Loop back and load file buffer again
+    70                                  
+    71                                      ; All done!
+    72                                  Done:
+    73 00000067 B801000000                  mov eax, 1          ; Call for exit Syscall
+    74 0000006C BB00000000                  mov ebx, 0          ; Return a code of zero
+    75 00000071 CD80                        int 80h             ; Make kernel call   
+    76                                  
+    77                                  
+    78                                  

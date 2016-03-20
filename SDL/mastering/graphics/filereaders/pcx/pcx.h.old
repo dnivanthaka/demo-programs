@@ -1,0 +1,41 @@
+#ifndef __PCX_HEADER_TYPE__
+#define __PCX_HEADER_TYPE__
+
+#include "types.h"
+
+// the PCX file structure
+typedef struct {
+        char manufacturer;        // the manufacturer of the file
+        char version;             // the file format version
+        char encoding;            // type of compression
+        char bits_per_pixel;      // number of bits per pixel
+        int x,y;                  // starting location of image
+        int width,height;         // size of image
+        int horz_res;             // resolution in DPI (dots per inch)
+        int vert_res;
+        char ega_palette[48];     // the old EGA palette (usually ignored)
+        char reserved;            // don't care
+        char num_color_planes;    // number of color planes
+        int bytes_per_line;       // number of bytes per line of the image
+        int palette_type;         // 1 for color, 2 for grey scale palette
+        char padding[58];         // extra bytes
+
+} pcx_header_t;
+
+// this holds the PCX header and the actual image
+typedef struct {
+        pcx_header_t header;         // the header of the PCX file
+        RGB_color_t palette[256];    // the palette data
+        unsigned char *buffer; // a pointer to the byte buffer
+                                   // holding the decompressed image
+
+} pcx_picture_t;
+
+//
+
+int read_header( FILE *, pcx_header_t * );
+int read_data( FILE *, pcx_picture_t * );
+int read_palette( FILE *, pcx_picture_t * );
+int read_pcx( char *, pcx_picture_t * );
+
+#endif //__PCX_HEADER_TYPE__

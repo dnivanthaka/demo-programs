@@ -1,0 +1,27 @@
+Psuedocode for Star Gazer Game
+==============================
+
+Show intro
+Show demo screen (Show instructions)
+Create players ship
+Create the environment
+Create the enemy ships
+while the player doesn't want to quit the game
+    if ESC key pressesed
+        Present a menu of choices to the player
+    Show players ship in the middle of screen
+    if the player wants to move the ship
+        Move the ship according to the key pressed
+    if the player wants to fire at enemies
+        Fire the weapon (For now we have unlimited ammo)
+    if Player gets hit
+        Reduce the health score (If it reaches 0% game ends with a Game Over message)
+    if Enemy ship is destroyed or No enemy ships on screen       
+        Determine the postion of new enemy ship
+            Draw enemy ship to screen
+    if Player hits the Rocks
+            Reduce points    
+
+Objects
+=======
+Stars, Rocks, Players Ship

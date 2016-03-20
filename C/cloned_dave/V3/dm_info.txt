@@ -1,0 +1,92 @@
+i_video.c
+===========
+
+SDL_Init(SDL_INIT_VIDEO)
+SDL_FillRect(screenbuffer, NULL, 0);
+SDL_SetColors(screenbuffer, palette, 0, 256);
+
+d_main.c
+========
+
+D_PostEvent (event_t* ev)
+void D_DoomLoop (void)
+
+d_event.h
+=========
+
+// Event structure.
+typedef struct
+{
+    evtype_t	type;
+    int		data1;		// keys / mouse/joystick buttons
+    int		data2;		// mouse/joystick x move
+    int		data3;		// mouse/joystick y move
+} event_t;
+
+
+g_game.c
+===========
+G_Responder
+doomkeys.h
+void G_InitPlayer (int player) 
+
+p_user.c
+=========
+
+void P_MovePlayer (player_t* player)
+
+doomstat.h -> // DESCRIPTION:
+//   All the global variables that store the internal state.
+//   Theoretically speaking, the internal state of the engine
+//    should be found by looking at the variables collected
+//    here, and every relevant module will have to include
+//    this header file.
+//   In practice, things are a bit messy.
+==========================================
+
+====================================
+====================================
+
+11.4. Linkage of Identifiers
+
+An identifier that is declared in several translation units, or several times in the same translation unit, may refer to the same object or function in each instance. The extent of an identifier's identity in and among translation units is determined by the identifier's linkage. The term reflects the fact that identifiers in separate source files need to be linked if they are to refer to a common object. 
+Identifiers in C have either external, internal, or no linkage. The linkage is determined by the declaration's position and storage class specifier, if any. Only object and function identifiers can have external or internal linkage . 
+
+11.4.1. External Linkage
+
+An identifier with external linkage represents the same function or object throughout the program. The compiler presents such identifiers to the linker, which resolves them with other occurrences in other translation units and libraries. 
+Function and object identifiers declared with the storage class specifier extern have external linkage, with one exception: if an identifier has already been declared with internal linkage, a second declaration within the scope of the first cannot change the identifier's linkage to external. 
+The compiler treats function declarations without a storage class specifier as if they included the specifier extern. Similarly, any object identifiers that you declare outside all functions and without a storage class specifier have external linkage. 
+
+11.4.2. Internal Linkage
+
+An identifier with internal linkage represents the same object or function within a given translation unit. The identifier is not presented to the linker. As a result, you cannot use the identifier in another translation unit to refer to the same object or function. 
+A function or object identifier has internal linkage if it is declared outside all functions and with the storage class specifier static. 
+Identifiers with internal linkage do not conflict with similar identifiers in other translation units. However, if a given identifier is declared with external linkage in any translation unit, you cannot declare the same identifier with internal linkage in that translation unit. Or to put it another way, if you declare an identifier with internal linkage in a given translation unit, you cannot also declare and use an external identifier defined in another translation unit with the same spelling. 
+11.4.3. No Linkage
+All identifiers that have neither external nor internal linkage have no linkage . Each declaration of such an identifier therefore introduces a new entity. Identifiers with no linkage include the following: 
+
+Identifiers that are not names of variables or functions, such as label names, structure tags, and typedef names
+
+Function parameters
+
+Object identifiers that are declared within a function and without the storage class specifier extern
+A few examples: 
+    int func1( void );            // func1 has external linkage.
+    int a;                        // a has external linkage.
+    extern int b = 1;             // b has external linkage.
+    static int c;                 // c has internal linkage.
+    static void func2( int d )    // func2 has internal linkage; d has no
+                                  // linkage.
+    {
+      extern int a;               // This a is the same as that above, with
+                                  // external linkage.
+      int b = 2;                  // This b has no linkage, and hides the
+                                  // external b declared above.
+      extern int c;               // This c is the same as that above, and
+                                  // retains internal linkage.
+      static int e;               // e has no linkage.
+      /* ... */
+    }
+
+As this example illustrates, an identifier with external or internal linkage is not always visible. The identifier b with no linkage, declared in the function func2( ), hides the identifier b with external linkage until the end of the function block (see "Identifier Scope" in Chapter 1). 

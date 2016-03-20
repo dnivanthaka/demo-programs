@@ -1,0 +1,19 @@
+     1                                  section .data
+     2 00000000 4B414E4741524F4F            snippet db "KANGAROO"
+     3                                  section .text
+     4                                  
+     5                                      global _start
+     6                                  
+     7                                  _start:
+     8 00000000 90                          nop
+     9                                  ;put code here
+    10 00000001 BB[00000000]                mov ebx,snippet
+    11 00000006 B808000000                  mov eax,8
+    12 0000000B 800320                  DoMore add byte [ebx],32
+    13 0000000E 43                          inc ebx
+    14 0000000F 48                          dec eax
+    15 00000010 75F9                        jnz DoMore
+    16                                  ;put code here
+    17 00000012 90                          nop
+    18                                  
+    19                                  section .bss

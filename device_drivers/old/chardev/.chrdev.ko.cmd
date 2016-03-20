@@ -1,0 +1,1 @@
+cmd_/home/dinusha/programs/device_drivers/chardev/chrdev.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-2.6.32-32-generic/scripts/module-common.lds --build-id -o /home/dinusha/programs/device_drivers/chardev/chrdev.ko /home/dinusha/programs/device_drivers/chardev/chrdev.o /home/dinusha/programs/device_drivers/chardev/chrdev.mod.o

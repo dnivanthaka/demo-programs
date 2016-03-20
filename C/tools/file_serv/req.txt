@@ -1,0 +1,23 @@
+Simplistic File transfer Client and Server
+==========================================
+
+Requirements
+------------
+
+Server
+------
+
+* Serving files from selected location
+* Ability to support multiple clients (Advanced)
+* Flow Control support
+* Security/Sanity checks
+* Connection Logging
+
+Client (Command Line)
+---------------------
+
+* accept a command and an optional parameter, and send them to the server
+    The only command it accepts is "get", with a full file path as a parameter.
+
+
+

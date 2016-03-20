@@ -1,0 +1,167 @@
+All the programs were created and tested on Ubuntu Linux Version 10.04 x86_64.
+
+Program
+=======
+sys_overhead.c - Program to measure (or estimate) system call overhead.
+
+Compiling
+=========
+gcc sys_overhead.c -o sys_overhead -lm
+
+Running
+=======
+Program has a bult-in help function, typing only the program name will display the required and accepted parameters.
+
+sys_overhead -c [system call] -s [sample times]
+
+
+Program
+=======
+pth_process.c - Program to measure process and thread creation times.
+
+Compiling
+=========
+gcc pth_process.c -o pth_process -lm -lpthread
+
+Running
+=======
+Program has a bult-in help function, typing only the program name will display the required and accepted parameters.
+
+pth_process -c [system call] -s [sample times]
+
+
+
+Program
+=======
+context.c - Program to measure/estimate process and thread context switch time.
+
+Compiling
+=========
+gcc context.c -o context -lm -lpthread
+
+Running
+=======
+Program has a bult-in help function, typing only the program name will display the required and accepted parameters.
+
+context -c [system call] -s [sample times]
+
+Method
+======
+
+Elapsed time was measured using the gettimeofday() system call. Time elapsed for each sample was measured, until for all user input samples times. The gettimeofday function returns the time elapsed in microseconds (Clock Resolution), It is the best function that provides microsecond accuracy.
+
+Data and Instruction caches were not considered in these experiments. Overhead due to system calls and read requests was measured in sys_overhead, however overhead due to synchronization objects or scheduling was not explicitly measured. Since all the expermenta were run for 1000 samples, it was assumed that the effect of the above mentioned problems were minimal.
+
+Results
+=======
+
+sys_overhead -c getpid -s 1000
+
+================= Results =================
+Number of Samples = 1000
+Average           = 0.061000 microseconds
+Max Value         = 2        microseconds
+Min Value         = 0        microseconds
+Std. Deviation    = 0.247051 microseconds
+===========================================
+
+sys_overhead -c getsid -s 1000
+================= Results =================
+Number of Samples = 1000
+Average           = 0.183000 microseconds
+Max Value         = 3        microseconds
+Min Value         = 0        microseconds
+Std. Deviation    = 0.396753 microseconds
+===========================================
+
+sys_overhead -c gettimeofday -s 1000
+================= Results =================
+Number of Samples = 1000
+Average           = 0.121000 microseconds
+Max Value         = 1        microseconds
+Min Value         = 0        microseconds
+Std. Deviation    = 0.327287 microseconds
+===========================================
+
+sys_overhead -c read -s 1000
+================= Results =================
+Number of Samples = 1000
+Average           = 0.209000 microseconds
+Max Value         = 1        microseconds
+Min Value         = 0        microseconds
+Std. Deviation    = 0.407310 microseconds
+===========================================
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+pth_process -c fork -s 1000
+
+================= Results =================
+Number of Samples = 1000
+Average           = 78.691002 microseconds
+Max Value         = 902       microseconds
+Min Value         = 48        microseconds
+Std. Deviation    = 40.580891 microseconds
+===========================================
+
+
+================= Results =================
+Number of Samples = 1000
+Average           = 551.875000 microseconds
+Max Value         = 3466       microseconds
+Min Value         = 1403       microseconds
+Std. Deviation    = 135787184.000000 microseconds
+===========================================
+
+pth_process -c thread-unb -s 1000
+
+================= Results =================
+Number of Samples = 1000
+Average           = 29.944000 microseconds
+Max Value         = 2238      microseconds
+Min Value         = 15        microseconds
+Std. Deviation    = 72.265259 microseconds
+===========================================
+
+pth_process -c thread-bou -s 1000
+
+================= Results =================
+Number of Samples = 1000
+Average           = 25.767000 microseconds
+Max Value         = 1135      microseconds
+Min Value         = 16        microseconds
+Std. Deviation    = 36.852764 microseconds
+===========================================
+
++++++++++++++++++++++++++++++++++++++++++++++++++
+
+context -c proc -s 1000
+
+================= Results =================
+Number of Samples = 1000
+Average           = 77.304001 microseconds
+Max Value         = 1202      microseconds
+Min Value         = 55        microseconds
+Std. Deviation    = 44.238525 microseconds
+===========================================
+
+context -c thread-unb -s 1000
+
+================= Results =================
+Number of Samples = 1000
+Average           = 40.544998 microseconds
+Max Value         = 2958      microseconds
+Min Value         = 24        microseconds
+Std. Deviation    = 130.542282 microseconds
+===========================================
+
+context -c thread-bou -s 1000
+================= Results =================
+Number of Samples = 1000
+Average           = 33.534000 microseconds
+Max Value         = 1168      microseconds
+Min Value         = 24        microseconds
+Std. Deviation    = 38.794308 microseconds
+===========================================
+
+

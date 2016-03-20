@@ -1,0 +1,24 @@
+#!/bin/sh
+# /etc/init.d/blah
+#
+
+# Some things that run always
+#touch /var/lock/blah
+
+# Carry out specific functions when asked to by the system
+case "$1" in
+  start)
+    echo "Starting pimote "
+    /usr/sbin/pimote
+    ;;
+  stop)
+    echo "Stopping pimote"
+    pkill pimote
+    ;;
+  *)
+    echo "Usage: /etc/init.d/pimote {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0

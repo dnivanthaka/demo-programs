@@ -1,0 +1,1 @@
+cmd_/home/dinusha/programs/device_drivers/new/kbleds/kbleds.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-2.6.32-32-generic/scripts/module-common.lds --build-id -o /home/dinusha/programs/device_drivers/new/kbleds/kbleds.ko /home/dinusha/programs/device_drivers/new/kbleds/kbleds.o /home/dinusha/programs/device_drivers/new/kbleds/kbleds.mod.o

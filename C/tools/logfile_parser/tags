@@ -1,0 +1,35 @@
+$(PROG	makefile	/^$(PROG): $(OBJS)$/
+%.o	makefile	/^%.o: %.c$/
+BUFFER_SIZE	requests.c	7
+CC	makefile	/^CC = gcc$/
+CFLAGS	makefile	/^CFLAGS = -g -Wall$/
+LD	makefile	/^LD = gcc$/
+LDFLAGS	makefile	/^LDFLAGS =$/
+MAX_ADDR_LEN	requests.h	5
+MAX_CONCURRENT_CLIENTS	requests.h	6
+MAX_TIME_LEN	requests.h	4
+Mmain	main.c	/^main(int argc, char *argv[])$/
+Mtest	test.c	/^main(int argc, char *argv[])$/
+OBJS	makefile	/^OBJS = main.o requests.o$/
+PROG	makefile	/^PROG = config_parser $/
+RM	makefile	/^RM = \/bin\/rm -f$/
+__REQUESTS__	requests.h	2
+address	requests.h	15
+all	makefile	/^all: $(PROG)$/
+check_client_exists	requests.c	/^check_client_exists(char *ip)$/
+chpos	requests.c	/^chpos(char *haystack, char *needle)$/
+chpos	test.c	/^chpos(char *str, char *needle){$/
+client	requests.h	14
+clients	requests.c	10
+file	requests.h	9
+get_client_address	requests.c	/^get_client_address(char *str, char *ip)$/
+get_request_time	requests.c	/^get_request_time(char *str, char *time)$/
+get_requested_file	requests.c	/^get_requested_file(char *str, char *file)$/
+kkkkkkkkk	output	1585
+next	requests.h	11
+num_clients	requests.c	9
+parse_log_file	requests.c	/^parse_log_file(struct client *info, FILE *fp)$/
+print_clients	requests.c	/^print_clients(){$/
+request	requests.h	8
+requests	requests.h	16
+time	requests.h	10

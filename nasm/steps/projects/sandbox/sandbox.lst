@@ -1,0 +1,30 @@
+     1                                  section .data
+     2                                  section .text
+     3                                  
+     4                                      global _start
+     5                                  
+     6                                  _start:
+     7 00000000 90                          nop
+     8                                      ;mov eax, 'WXYZ'
+     9                                      ;mov eax, 0FFFFFFFFh
+    10                                      ;mov ebx, 02Dh
+    11                                      ;inc eax
+    12                                      ;inc ebx
+    13                                      ;mov eax,5
+    14                                  ;DoMore dec eax
+    15                                      ;jmp DoMore
+    16                                      ;nop
+    17                                      ;mov eax,42
+    18                                      ;neg eax
+    19                                      ;add eax,42
+    20                                      ;mov ax,-42
+    21                                      ;mov ebx,eax
+    22                                      ;movsx ebx,ax
+    23                                      ;mov eax,447
+    24                                      ;mov ebx,1739
+    25                                      ;mul ebx
+    26 00000001 B8FFFFFFFF                  mov eax,0FFFFFFFFh
+    27 00000006 BB723B0000                  mov ebx,03B72h
+    28 0000000B F7E3                        mul ebx
+    29                                  
+    30                                  section .bss

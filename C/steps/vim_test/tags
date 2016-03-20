@@ -1,0 +1,2 @@
+add_func	calc_func.c	/^int add_func(int x, int y)$/
+deduct_func	calc_func.c	/^int deduct_func(int x, int y)$/
